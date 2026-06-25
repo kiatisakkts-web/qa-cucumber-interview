@@ -1,0 +1,24 @@
+{
+  "name": "qa-cucumber-interview",
+  "version": "1.0.0",
+  "description": "Cucumber-first QA automation foundation for UI and API tests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "test:ui": "cucumber-js --tags @ui",
+    "test:api": "cucumber-js --tags @api",
+    "report": "node scripts/generate-report.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.0.0",
+    "cucumber-html-reporter": "^7.2.0",
+    "playwright": "^1.61.1"
+  },
+  "dependencies": {
+    "axios": "^1.18.1"
+  }
+}
