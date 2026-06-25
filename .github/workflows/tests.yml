@@ -27,6 +27,24 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      - name: Start API container
+        run: docker run -d --rm --name qa-practice-api -p 8887:8081 rvancea/qa-practice-api:latest
+
+      - name: Wait for API
+        run: |
+          for i in {1..30}; do
+            if curl --fail --silent http://localhost:8887/api/v1/employees > /dev/null; then
+              echo "API is ready"
+              exit 0
+            fi
+
+            echo "Waiting for API... attempt $i"
+            sleep 2
+          done
+
+          docker logs qa-practice-api
+          exit 1
+
       - name: Run Cucumber tests
         run: npm test
 
@@ -39,4 +57,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-report
-          path: reports/
+          path: reports/cucumber-report.html
